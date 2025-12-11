@@ -1,0 +1,27 @@
+services:
+  database:
+    image: postgres:15.14-trixie
+    volumes:
+      - db_data1:/var/lib/postgresql/data
+      - ./init_database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_PASSWORD=${PASSWORD}
+      - POSTGRES_USER=${USERNAME}
+      - POSTGRES_DB=${DBNAME}
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 5433:6379
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+
+volumes:
+  db_data1:
+  redis_data:

@@ -1,0 +1,38 @@
+[package]
+name = "backend_and_database"
+version = "0.1.1"
+edition = "2024"
+
+[workspace]
+members = [
+    ".",          # root crate (src/)
+    "migration"  # migration crate
+]
+
+[dependencies]
+axum = "0.8.6"
+cargo-watch = "8.5.3"
+dotenvy = "0.15.7"
+sea-orm = { version = "1.1.16", features = ["sqlx-postgres", "runtime-tokio-rustls"] }
+migration = { path = "migration" }  # path to your migration folder
+
+serde = "1.0.228"
+serde_with = "3.15.0"
+tokio = { version = "1.48.0", features = ["rt-multi-thread", "macros"] }
+validator = { version = "0.20.0", features = ["derive"] }
+reqwest = { version = "0.12.24", features = ["json"] }
+serde_json = "1.0.145"
+openssl = "0.10.74"
+tower-http = { version = "0.6.6", features = ["cors"] }
+jsonwebtoken = { version = "10.1.0", features = ["aws_lc_rs"] }
+thiserror = "2.0.17"
+anyhow = "1.0.100"
+uuid = { version = "1.18.1", features = ["v4"] }
+redis = { version = "0.32.7", features = ["tokio-comp"] }
+chrono = "0.4.42"
+lettre = "0.11.19"
+async-trait = "0.1.89"
+bcrypt = "0.17.1"
+argon2 = "0.5.3"
+axum-extra = { version = "0.12.2", features = ["cookie"] }
+time = "0.3.44"
