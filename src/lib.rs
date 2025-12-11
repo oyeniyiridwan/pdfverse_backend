@@ -25,6 +25,7 @@ pub async fn run() -> Result<(), Box<dyn Error>> {
     let settings: Settings = Settings::from_env();
 
 let database = database_connection(&settings.database_url).await?;
+println!("here adebara {}", &settings.database_url);
 let  redis_database =redis_database_connection(&settings.redis_url).await?;
 let email_client = EmailClient::new()?;
 let provider_repo = Arc::new(

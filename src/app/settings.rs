@@ -32,7 +32,7 @@ impl Settings {
             redis_url: var("REDIS_URL").expect("REDIS_URL not set"),
             smtp_url: var("SMTP_URL").expect("SMTP_URL not set"),
             redirect_url: var("REDIRECT_URL").expect("REDIRECT_URL not set"),
-            secret: var("JWT_SECRET").unwrap_or("iya_mi".to_string()),
+            secret: var("JWT_SECRET").expect("JWT_SECRET not set"),
             app_url: var("APP_URL").expect("APP_URL not set"),
             google_client_id: var("GOOGLE_CLIENT_ID").expect("GOOGLE_CLIENT_ID not set"),
             google_secret: var("GOOGLE_SECRET").expect("GOOGLE_SECRET not set"),
