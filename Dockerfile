@@ -26,5 +26,6 @@ WORKDIR /app
 # Get compiled binaries from builder's cargo install directory
 COPY --from=builder /usr/src/app/backend_and_database /app/backend_and_database
 
+
 # Run the app
 CMD ./backend_and_database
