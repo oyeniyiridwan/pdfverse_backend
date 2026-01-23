@@ -1,22 +1,10 @@
 
-
-
-
-
-
-
-
-
-
-
-
 use std::{collections::HashMap};
 
 use axum::{ Json, extract::{Path, Query, State}, http::HeaderMap, response::Redirect};
 use axum_extra::extract::CookieJar;
-use chrono::Utc;
 use serde_json::Value;
-use crate::{app::state:: ConcreteAppState, domain::auth::Provider, dtos::{auth_dto::AuthToken, user_dto::UserResponse}, services::auth_service::AuthService, utils::{enums::Platform, error::ApiError, helper_function::{create_jwt_tokens, decode_jwt, extract_platform_from_header, extract_token_and_platform, refresh_token_helper, session_and_cookie_header}}};
+use crate::{app::state:: ConcreteAppState, domain::auth::{provider::Provider, utils::{extract_platform_from_header, extract_token_and_platform, refresh_token_helper, session_and_cookie_header}}, dtos::{auth_dto::AuthToken, user_dto::UserResponse}, services::auth_service::AuthService, utils::error::ApiError};
 
 
 pub async fn auth(

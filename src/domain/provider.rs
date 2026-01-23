@@ -1,8 +1,7 @@
-use chrono::{DateTime, Utc};
 use sea_orm::prelude::DateTimeWithTimeZone;
 use uuid::Uuid;
 
-use crate::{database::providers, dtos::auth_dto::AuthClaims};
+use crate::{database::providers};
 
 pub struct Provider {
     pub provider_name: String,

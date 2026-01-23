@@ -20,3 +20,19 @@ primary_region = 'jnb'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[env]
+#not baked
+REDIRECT_URL="https://api.shevyverse.com"
+APP_URL="https://flutter.shevyverse.com"
+MAIL_ADDRESS="shevyverse@gmail.com"
+SMTP_URL="smtp.gmail.com"
+STORAGE_PROVIDER="supabase"
+OPENAI_EMBEDDING_URL="https://api.openai.com/v1/embeddings"
+OPENAI_MESSAGING_URL="https://api.openai.com/v1/chat/completions"
+OPENAI_MODEL="text-embedding-3-small"
+OPENAI_RESPONSE_MODEL="gpt-4.1-mini"
+
+
+
+

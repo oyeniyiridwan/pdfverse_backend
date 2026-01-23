@@ -1,6 +1,5 @@
 use axum::{Extension, Json, extract::{Path, Query,State}};
-use uuid::Uuid;
-use crate::{app::state::ConcreteAppState, custom_middleware::Claim, dtos::task_dto::{RequestTask, RequestTaskFilter, RequestUpdateTask, TaskDeleteParam, TaskResponse}, services::task_service::TaskService, utils::error::ApiError};
+use crate::{app::state::ConcreteAppState, domain::auth::claim::Claim, dtos::task_dto::{RequestTask, RequestTaskFilter, RequestUpdateTask, TaskDeleteParam, TaskResponse}, services::task_service::TaskService, utils::error::ApiError};
 
 
 

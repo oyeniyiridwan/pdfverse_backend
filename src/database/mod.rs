@@ -2,6 +2,9 @@
 
 pub mod prelude;
 
+pub mod chat_info;
+pub mod chat_message;
+pub mod document_chunk;
 pub mod providers;
 pub mod tasks;
 pub mod users;

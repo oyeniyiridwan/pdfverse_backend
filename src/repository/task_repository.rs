@@ -71,7 +71,7 @@ async fn find_task_model_by_id(&self, id:i32, user_id: Uuid)->Result<Option<Mode
     
          Tasks::find().filter(condition).one(&self.db).await
 .map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("find_task_model: {e}"))
     )
 }
 
@@ -90,7 +90,7 @@ impl TaskRepository for TaskRepositoryImpl
             ..Default::default()
         };
     let model =    active_task.insert(&self.db).await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("TaskRepository-create_task: {e}"))
     )?;
     Ok(Task::from(model))
 
@@ -101,7 +101,7 @@ impl TaskRepository for TaskRepositoryImpl
        condition = condition.add(Column::Id.eq(id));
         let task = Tasks::find()
         .filter(condition).one(&self.db).await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("TaskRepository-delete_task: {e}"))
     )?;
  let task_model =      match task{
         Some(model) => model,
@@ -121,7 +121,7 @@ match soft{
                 active_task.deleted_at = Set(Some(DateTimeWithTimeZone::from(Utc::now())));
                 active_task.update(&self.db).await
 .map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("TaskRepository-delete_task-soft(true): {e}"))
     )?;
             },
         }
@@ -130,7 +130,7 @@ match soft{
        let delete_result =  task_model.into_active_model()
        .delete(&self.db).await
 .map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("TaskRepository-delete_task-soft(false): {e}"))
     )?;
     if delete_result.rows_affected ==0{
                return   Err(ApiError::NotFound(format!("task with id: {}  not found",id)));
@@ -155,7 +155,7 @@ match soft{
     condition = condition.add(Column::DeletedAt.is_null());
         let task = Tasks::find().filter(condition).all(&self.db).await
 .map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("TaskRepository-find_user_tasks: {e}"))
     )?;
     
    Ok(  task.into_iter().map(|t| Task::from(t)).collect())
@@ -181,7 +181,7 @@ if let Some( is_default) = new_task.is_default{
 }
        
 let task_model = task.update(&self.db).await.map_err(|e|
-ApiError::internal_msg(format!("error:{e}")))?;
+ApiError::internal_msg(format!("TaskRepository-partial_update_task:{e}")))?;
 Ok(Task::from(task_model))
 
     }
@@ -197,7 +197,7 @@ Ok(Task::from(task_model))
             ..Default::default()
         };
         let task_model = active_task.update(&self.db).await.map_err(|e|
-ApiError::internal_msg(format!("error:{e}")))?;
+ApiError::internal_msg(format!("TaskRepository-complete_update_task:{e}")))?;
 Ok(Task::from(task_model))
     }
 }

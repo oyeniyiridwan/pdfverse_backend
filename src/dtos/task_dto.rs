@@ -1,7 +1,7 @@
 use axum::{Json, extract::FromRequest};
 use serde::{Deserialize, Serialize};
 use serde_with::skip_serializing_none;
-use validator::{Validate, ValidationError};
+use validator::Validate;
 
 use crate::{domain::task::Task, utils::error::ApiError};
 
@@ -86,7 +86,7 @@ pub struct TaskResponse{
 
 impl From<Task> for TaskResponse {
     fn from(task: Task) -> Self {
-       Self { id: task.id.expect(""), priority: task.priority, title: task.title, description: task.description, user_id: task.user_id.to_string() }
+       Self { id: task.id.expect("task id not supplied by domain Task"), priority: task.priority, title: task.title, description: task.description, user_id: task.user_id.to_string() }
     }
 }
 

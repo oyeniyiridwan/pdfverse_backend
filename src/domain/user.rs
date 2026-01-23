@@ -1,6 +1,6 @@
 use uuid::Uuid;
 
-use crate::{database::users, domain::auth::Provider};
+use crate::{database::users, domain::auth::provider::Provider};
 
 #[derive(Debug, Clone)]
 pub struct User{

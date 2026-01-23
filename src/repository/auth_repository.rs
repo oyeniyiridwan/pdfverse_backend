@@ -1,6 +1,6 @@
 use redis::{AsyncTypedCommands,aio::MultiplexedConnection};
 use uuid::Uuid;
-use crate::{app::settings::Settings, domain::auth::Provider, utils::error::ApiError};
+use crate::{ domain::auth::provider::Provider, utils::error::ApiError};
 
 
 pub trait AuthRepository: Send + Sync{
@@ -31,7 +31,7 @@ impl AuthRepository for AuthRepositoryImpl {
     let value: Option<String> = con
         .get(&key).await
         .map_err(|e| 
-           ApiError::internal_msg(format!("error: {e}")))?;
+           ApiError::internal_msg(format!("AuthRepository: {e}")))?;
     let email: String = match value {
         Some(json) =>json,
         None => {
@@ -40,7 +40,7 @@ impl AuthRepository for AuthRepositoryImpl {
         }
     };
    con.del(&key).await.map_err(|e|
-ApiError::internal_msg(format!("error: {e}"))
+ApiError::internal_msg(format!("AuthRepository-RedisError: {e}"))
 )?; 
    Ok(email)
       
@@ -57,7 +57,7 @@ let token = Uuid::new_v4() ;
     let _: () = con
         .set_ex(&key, &email, 600).await
         .map_err(|e| 
-   ApiError::internal_msg(format!("error: {e}")))?;
+   ApiError::internal_msg(format!("verify_token: {e}")))?;
    Ok(token.to_string())
       
       }
@@ -71,7 +71,7 @@ let token = Uuid::new_v4() ;
     let _: () = con
         .set_ex(&key, &email, 600).await
         .map_err(|e| 
-   ApiError::internal_msg(format!("error: {e}")))?;
+   ApiError::internal_msg(format!("write_to_redis: {e}")))?;
 
 // let link: String = format!("{}/{}?token={}", settings.redirect_url,provider.to_string(),token);
 

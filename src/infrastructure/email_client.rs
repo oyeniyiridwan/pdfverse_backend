@@ -17,7 +17,7 @@ impl EmailClient {
         let from_email_address = settings
             .mail_address
             .parse::<Address>()
-            .map_err(|e| ApiError::internal_msg(format!("error: {e}")))?;
+            .map_err(|e| ApiError::internal_msg(format!("EmailClient : {e}")))?;
         let from = Mailbox {
             name: Some("Shevyverse Support".to_string()),
             email: from_email_address,
@@ -25,7 +25,7 @@ impl EmailClient {
         let credential = Credentials::new(settings.mail_address, settings.mail_password);
 
         let mailer = SmtpTransport::relay(&settings.smtp_url)
-            .map_err(|e| ApiError::internal_msg(format!("error: {e}")))?
+            .map_err(|e| ApiError::internal_msg(format!("EmailClient-mailer: {e}")))?
             .credentials(credential)
             .build();
 
@@ -45,7 +45,7 @@ pub fn send_email(
 ) -> Result<(), ApiError> {
     let to_email_address = recipient_email
         .parse::<Address>()
-        .map_err(|e| ApiError::internal_msg(format!("error: {e}")))?;
+        .map_err(|e| ApiError::internal_msg(format!("send_email: {e}")))?;
     let to = Mailbox {
         name: None,
         email: to_email_address,
@@ -57,10 +57,10 @@ pub fn send_email(
         .subject(subject)
         .header(header::ContentType::TEXT_HTML)
         .body(html_body)
-        .map_err(|e| ApiError::internal_msg(format!("error: {e}")))?;
+        .map_err(|e| ApiError::internal_msg(format!("send_email-email: {e}")))?;
 
      self.mailer.send(&email)            
-.map_err(|e| ApiError::internal_msg(format!("Send error: {e}")))?;
+.map_err(|e| ApiError::internal_msg(format!("send_email-self.mailer: {e}")))?;
 
 
     Ok(())

@@ -1,8 +1,9 @@
+use crate::domain::auth::hash_password;
+use crate::domain::auth::provider::Provider;
 use crate::utils::error::ApiError;
 use crate::{
-    domain::{auth::Provider, user::User},
+    domain::{user::User},
     repository::user_repository::UserRepository,
-    utils::helper_function::hash_password,
 };
 use std::sync::Arc;
 use uuid::Uuid;

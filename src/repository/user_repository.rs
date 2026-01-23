@@ -49,7 +49,7 @@ impl UserRepository for UserRepositoryImpl {
             .one(&self.db)
             .await
 .map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-find_by_email: {e}"))
     )?;
 
         Ok(user.map(User::from))
@@ -61,7 +61,7 @@ impl UserRepository for UserRepositoryImpl {
             .filter(Column::Id.eq(id.to_owned()))
             .one(&self.db)
             .await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-find_by_id: {e}"))
     )?;
 
         Ok(user.map(User::from)) 
@@ -81,7 +81,7 @@ if let Some(email) = user.email.clone(){
 };
 
         active_user.insert(&self.db).await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-create_user: {e}"))
     )?;
         Ok(())
     }
@@ -96,7 +96,7 @@ if let Some(email) = user.email.clone(){
             .filter(Column::Id.eq(id.to_owned()))
             .one(&self.db)
             .await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-update_user: {e}"))
     )?;
         
         let mut active_user = match user{
@@ -121,7 +121,7 @@ active_user.email_verified = Set(_email_verified)
        }
 
  let user_model=  active_user.update(&self.db).await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-update_user_by_id-user-model: {e}"))
     )?;
         Ok(User::from(user_model))
     }
@@ -143,7 +143,7 @@ active_user.email_verified = Set(_email_verified)
             .filter(Column::Email.eq(email.to_lowercase().to_owned()))
             .one(&self.db)
             .await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-update_user_by_email: {e}"))
     )?;
         
         let mut active_user = match user{
@@ -168,7 +168,7 @@ active_user.email_verified = Set(_email_verified)
        }
 
  let user_model=  active_user.update(&self.db).await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("UserRepository-update_user_by_email-user-model: {e}"))
     )?;
         Ok(User::from(user_model))
     }

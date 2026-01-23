@@ -1,12 +1,15 @@
-use crate::utils::helper_function::decide_redirect_link;
-use crate::utils::{error::ApiError, helper_function::verify_password};
+use crate::domain::auth::verify_password;
+use crate::domain::auth::provider::Provider;
+use crate::domain::auth::utils::decide_redirect_link;
+use crate::utils::functions::basic::extract_names;
+use crate::utils::{error::ApiError};
 use crate::{
     app::{cache::AppCache, settings::Settings},
-    domain::{auth::Provider, provider::Provider as TableProvider, user::User},
+    domain::{ provider::Provider as TableProvider, user::User},
     dtos::auth_dto::AuthClaims,
     repository::{auth_repository::AuthRepository, provider_repository::ProviderRepository},
-    services::{email_service::EmailService, user_service::UserService},
-    utils::{config::OAUTHConfig, helper_function::extract_names},
+    services::{infrastructure_services::EmailService, user_service::UserService},
+    utils::{config::OAUTHConfig},
 };
 use axum::response::Redirect;
 use jsonwebtoken::{Algorithm, DecodingKey, Validation, decode, decode_header};

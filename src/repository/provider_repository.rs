@@ -30,7 +30,7 @@ impl ProviderRepository for ProviderRepositoryImpl {
             .filter(Column::ExternalId.eq(sub))
             .one(&self.db)
             .await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("ProviderRepository-find_by_external: {e}"))
     )?;
 
         Ok(provider.map(Provider::from))
@@ -50,7 +50,7 @@ impl ProviderRepository for ProviderRepositoryImpl {
 };
 
         active_provider.insert(&self.db).await.map_err(|e|
-    ApiError::internal_msg(format!("error: {e}"))
+    ApiError::internal_msg(format!("ProviderRepository-create_provider: {e}"))
     )?;
         Ok(())
 

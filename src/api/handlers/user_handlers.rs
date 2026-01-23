@@ -1,7 +1,7 @@
 
 use axum::{Extension, Json, extract::State, http::HeaderMap};
 
-use crate::{ app::state::ConcreteAppState, custom_middleware::Claim, dtos::user_dto::{RequestMagicLinkUser, RequestUser, UserResponse}, services::{auth_service::AuthService, user_service::UserService}, utils::{error::ApiError, helper_function::{create_jwt_tokens, extract_platform_from_header, session_and_cookie_header}}};
+use crate::{ app::state::ConcreteAppState, domain::auth::{claim::Claim, utils::{extract_platform_from_header, session_and_cookie_header}}, dtos::user_dto::{RequestMagicLinkUser, RequestUser, UserResponse}, services::{auth_service::AuthService, user_service::UserService}, utils::error::ApiError};
 
 
 pub async fn login_with_email_password( 

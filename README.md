@@ -363,11 +363,16 @@ sea-orm-cli migrate generate <migration_name>
  
 
   sea-orm-cli generate entity \
-  -u postgres://adebara:adebara@localhost:5432/mydatabase \
+  -u postgres://adebara:adebara@localhost:5434/mydatabase \
   -o src/database --with-serde both
 
 
 
   #### redis
 
-  shevyredisdatabase
+  shevyredisdatabase 
+  #[sea_orm(column_type = "custom(\"vector\")", nullable,select_as = "FLOAT4[]")]
+    pub embedding: Option<Vec<f32>>,
+
+
+  
