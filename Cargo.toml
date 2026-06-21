@@ -1,5 +1,5 @@
 [package]
-name = "backend_and_database"
+name = "pdfverse_backend"
 version = "0.1.1"
 edition = "2024"
 

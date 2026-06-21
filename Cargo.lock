@@ -945,45 +945,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "backend_and_database"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "argon2",
- "async-trait",
- "aws-config",
- "aws-sdk-s3",
- "axum",
- "axum-extra",
- "bcrypt",
- "bytes",
- "cargo-watch",
- "chrono",
- "dotenvy",
- "jsonwebtoken",
- "lettre",
- "lopdf",
- "migration",
- "openssl",
- "pdf-extract",
- "pdf_oxide",
- "redis",
- "regex",
- "reqwest",
- "sea-orm",
- "serde",
- "serde_json",
- "serde_with",
- "tempfile",
- "thiserror 2.0.17",
- "time",
- "tokio",
- "tower-http",
- "uuid",
- "validator",
-]
-
-[[package]]
 name = "base16ct"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4014,6 +3975,45 @@ dependencies = [
  "ttf-parser 0.24.1",
  "uuid",
  "weezl",
+]
+
+[[package]]
+name = "pdfverse_backend"
+version = "0.1.1"
+dependencies = [
+ "anyhow",
+ "argon2",
+ "async-trait",
+ "aws-config",
+ "aws-sdk-s3",
+ "axum",
+ "axum-extra",
+ "bcrypt",
+ "bytes",
+ "cargo-watch",
+ "chrono",
+ "dotenvy",
+ "jsonwebtoken",
+ "lettre",
+ "lopdf",
+ "migration",
+ "openssl",
+ "pdf-extract",
+ "pdf_oxide",
+ "redis",
+ "regex",
+ "reqwest",
+ "sea-orm",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tempfile",
+ "thiserror 2.0.17",
+ "time",
+ "tokio",
+ "tower-http",
+ "uuid",
+ "validator",
 ]
 
 [[package]]

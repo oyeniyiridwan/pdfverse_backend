@@ -5,7 +5,7 @@ COPY . .
 # Will build and cache the binary and dependent crates in release mode
 RUN --mount=type=cache,target=/usr/local/cargo,from=rust:latest,source=/usr/local/cargo \
     --mount=type=cache,target=target \
-    cargo build --release && mv ./target/release/backend_and_database ./backend_and_database
+    cargo build --release && mv ./target/release/pdfverse_backend ./pdfverse_backend
 
 # Runtime image
 FROM debian:bookworm-slim
@@ -24,8 +24,8 @@ USER app
 WORKDIR /app
 
 # Get compiled binaries from builder's cargo install directory
-COPY --from=builder /usr/src/app/backend_and_database /app/backend_and_database
+COPY --from=builder /usr/src/app/pdfverse_backend /app/pdfverse_backend
 
 
 # Run the app
-CMD ./backend_and_database
+CMD ./pdfverse_backend
