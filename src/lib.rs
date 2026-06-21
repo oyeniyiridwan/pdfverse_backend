@@ -66,7 +66,7 @@ let app_state:ConcreteAppState = Arc::new(AppState::new(auth_service, task_servi
 
 
     migration::Migrator::up(&database, None).await?;
-    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:3001")).await?;
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:8080")).await?;
     let app = create_routes(app_state);
     serve(listener, app).await?;
 
