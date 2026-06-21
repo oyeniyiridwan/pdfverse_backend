@@ -1,17 +1,28 @@
-# fly.toml app configuration file generated for ridwanbackend-holy-shape-1365 on 2025-10-13T15:56:14+01:00
+# fly.toml app configuration file generated for pdfverse-backend on 2026-06-21T13:45:39Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'ridwanbackend-holy-shape-1365'
-primary_region = 'jnb'
+app = 'pdfverse-backend'
+primary_region = 'ams'
 
 [build]
 
+[env]
+  APP_URL = 'https://flutter.shevyverse.com'
+  MAIL_ADDRESS = 'shevyverse@gmail.com'
+  OPENAI_EMBEDDING_URL = 'https://api.openai.com/v1/embeddings'
+  OPENAI_MESSAGING_URL = 'https://api.openai.com/v1/chat/completions'
+  OPENAI_MODEL = 'text-embedding-3-small'
+  OPENAI_RESPONSE_MODEL = 'gpt-4.1-mini'
+  REDIRECT_URL = 'https://api.shevyverse.com'
+  SMTP_URL = 'smtp.gmail.com'
+  STORAGE_PROVIDER = 'supabase'
+
 [http_service]
-  internal_port = 3001
+  internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
@@ -20,19 +31,4 @@ primary_region = 'jnb'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-
-[env]
-#not baked
-REDIRECT_URL="https://api.shevyverse.com"
-APP_URL="https://flutter.shevyverse.com"
-MAIL_ADDRESS="shevyverse@gmail.com"
-SMTP_URL="smtp.gmail.com"
-STORAGE_PROVIDER="supabase"
-OPENAI_EMBEDDING_URL="https://api.openai.com/v1/embeddings"
-OPENAI_MESSAGING_URL="https://api.openai.com/v1/chat/completions"
-OPENAI_MODEL="text-embedding-3-small"
-OPENAI_RESPONSE_MODEL="gpt-4.1-mini"
-
-
-
-
+  memory_mb = 256
