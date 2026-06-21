@@ -65,8 +65,17 @@ let app_state:ConcreteAppState = Arc::new(AppState::new(auth_service, task_servi
     
 
 
-    migration::Migrator::up(&database, None).await?;
-    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:8080")).await?;
+    // migration::Migrator::up(&database, None).await?;
+    // let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:8080")).await?;
+   println!("Connecting to database...");
+migration::Migrator::up(&database, None).await?;
+println!("Migrations done");
+
+println!("Binding to port 8080...");
+let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await?;
+
+println!("Server started");
+   
     let app = create_routes(app_state);
     serve(listener, app).await?;
 
