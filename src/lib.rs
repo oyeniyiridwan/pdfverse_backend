@@ -23,13 +23,24 @@ use crate::{adapters::storage_adapter::StorageAdapterImpl, api::routes::create_r
 
 pub async fn run() -> Result<(), Box<dyn Error>> {
     let settings: Settings = Settings::from_env();
-
+println!("Connecting database");
 let database = database_connection(&settings.database_url).await?;
-let  redis_database =redis_database_connection(&settings.redis_url).await?;
+println!("Database connected");
+
+println!("Connecting redis");
+let redis_database = redis_database_connection(&settings.redis_url).await?;
+println!("Redis connected");
+
+println!("Creating email client");
 let email_client = EmailClient::new()?;
+println!("Email client created");
+
+println!("Creating S3 client");
+let s3_client = get_s3_client();
+println!("S3 client created");
+
 let provider_repo = Arc::new(
     ProviderRepositoryImpl::new(database.clone()));
-let s3_client = get_s3_client();
     let email_service = EmailService::new(email_client);
 let user_service = Arc::new(UserServiceImpl::new(
     Arc::new(UserRepositoryImpl::new(database.clone())
