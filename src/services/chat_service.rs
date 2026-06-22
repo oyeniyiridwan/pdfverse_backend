@@ -153,8 +153,12 @@ where
         } else {
             let chat_history = previous_messages.join("\n");
             format!(
-                "Provide a factual answer based solely on the context below and the previous conversation. \
-If the answer is not contained in them, say that it is not available.\n\nContext:\n{}\n\nPrevious conversation:\n{}\n\nQuestion:\n{}",
+                "Answer the question based primarily on the context and previous conversation below. \
+You may use reasoning and general knowledge to help explain or connect ideas, \
+but make clear when you're going beyond what the context explicitly states.\n\n\
+<context>\n{}\n</context>\n\n\
+<conversation>\n{}\n</conversation>\n\n\
+Question: {}",
                 context, chat_history, question
             )
         };

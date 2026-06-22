@@ -190,12 +190,20 @@ where
             .collect::<Vec<(f32, DocumentChunk)>>();
         scored_chunks.sort_by(|a, b| b.0.total_cmp(&a.0));
 
+        // let top_chunks = scored_chunks.into_iter().take(5).collect::<Vec<_>>();
+        // let context = top_chunks
+        //     .into_iter().enumerate()
+        //     .map(|(i, c)| format!("Source {}:\n{}", i + 1.0, c.content))
+        //     .collect::<Vec<_>>()
+        //     .join("\n\n---\n\n");
         let top_chunks = scored_chunks.into_iter().take(5).collect::<Vec<_>>();
-        let context = top_chunks
-            .into_iter()
-            .map(|(i, c)| format!("Source {}:\n{}", i + 1.0, c.content))
-            .collect::<Vec<_>>()
-            .join("\n\n---\n\n");
+let context = top_chunks
+    .into_iter()
+    .enumerate()                          // ← use enumerate for a real index
+    .map(|(i, (score, c))| format!("Source {}:\n{}", i + 1, c.content))
+    .collect::<Vec<_>>()
+    .join("\n\n---\n\n");
+
         context
     }
 
